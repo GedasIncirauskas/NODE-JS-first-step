@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form id="name">
+      <input type="text" name="name" placeholder="Name" />
+      <input type="text" name="name" placeholder="Surname" />
+      <button type="submit">Submit</button>
+    </form>
+    <script>
+      document.getElementById("name").addEventListener("submit", (e) => {
+        e.preventDefault();
+        const nameValue = e.target.elements[0].value.trim();
+        const surnameValue = e.target.elements[1].value.trim();
+        fetch("http://localhost:3000/names", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ name: nameValue, surname: surnameValue }),
+        })
+          .then((res) => res.json())
+          .then((data) => console.log(data));
+      });
+    </script>
+  </body>
+</html>
